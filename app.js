@@ -11,7 +11,7 @@ MongoClient.connect('mongodb://localhost:27017/CEN526', function (err, db) {
     if (err) throw err;
 
     app.get('/', function (req, res) {
-        var name = 'CEN526 Web Technologies';
+        var name = 'CEN526';
         return res.render('hello', {"name": name});
     });
 
