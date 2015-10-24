@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}Lectures{% endblock %}
+
+{% block head %}
+{% parent %}
+{% endblock %}
+
+{% block content %}
+<h1>{{ pagename}}</h1>
+<ul>
+    {% for lecture in lectures %}
+    <li>
+        {{ lecture.name }} : {{ lecture.comment }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
