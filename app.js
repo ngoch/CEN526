@@ -3,69 +3,10 @@ var express = require('express'),
     cons = require('consolidate'),
     MongoClient = require('mongodb').MongoClient;
 
-app.engine('html', cons.swig);
-app.set('view engine', 'html');
-app.set('views', __dirname + '/views');
-// serve static content
-app.use('/public',express.static(__dirname + '/public'));
+var path = require('path');
 
-MongoClient.connect('mongodb://localhost:27017/CEN526', function (err, db) {
-    if (err) throw err;
+global.appRoot = path.resolve(__dirname);
+global.controllersPath = path.resolve(__dirname + "/app/controllers");
 
-    app.get('/', function (req, res) {
-        db.collection('lectures').find().limit(1).next(function (err, doc) {
-            if (err) {
-                console.log(err);
-            } else {
-                return res.render('index', {'name': doc.name});
-            }
-        });
-    });
-
-    app.get('/initdb', function (req, res) {
-        var lecturesCollection = db.collection('lectures');
-
-        lecturesCollection.drop(function () {
-            console.log('dropped lectures collection');
-        });
-
-        var cen526 = {'name': 'CEN526', 'comment': 'Web Technologies Ph.D. Mikheil Rukhaia 19:00 - 22:00 B301'};
-
-        lecturesCollection.insertOne(cen526, function (err, doc) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log('insert document');
-                console.log(doc.ops);
-            }
-            return res.render('initdb', {'result': doc.result.ok});
-        });
-    });
-
-    app.get('/lectures', function (req, res) {
-
-        var cursor = db.collection('lectures').find();
-
-        cursor.toArray(function (err, docs) {
-            console.log("retrieved records:");
-            console.log(docs);
-
-            return res.render('lectures', {'pagenam': 'Lectures list', 'lectures': docs});
-
-        });
-
-    });
-
-    // catch errors
-    app.use(function(req, res, next) {
-        res.render('errors/404', {});
-        //res.status(404).send('Sorry cant find that!');
-    });
-
-    var server = app.listen(8000, function () {
-        var host = server.address().address;
-        var port = server.address().port;
-
-        console.log('Express server listening at http://%s:%s', host, port);
-    });
-});
+require(__dirname + '/config/environment.js')(app, cons);
+require(__dirname + '/config/routes.js')(app, express, MongoClient);

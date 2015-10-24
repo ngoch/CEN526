@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}My App{% endblock %}</title>
     {% block header %}
-        {% include 'blocks/header.html' %}
+    {% include 'blocks/header.html' %}
     {% endblock %}
 </head>
 <body>
 <div class="container">
-{% block content %}{% endblock %}
+    {% block content %}{% endblock %}
 </div>
 </body>
 </html>
