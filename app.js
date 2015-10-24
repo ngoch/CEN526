@@ -6,6 +6,8 @@ var express = require('express'),
 app.engine('html', cons.swig);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
+// serve static content
+app.use('/public',express.static(__dirname + '/public'));
 
 MongoClient.connect('mongodb://localhost:27017/CEN526', function (err, db) {
     if (err) throw err;
@@ -24,7 +26,7 @@ MongoClient.connect('mongodb://localhost:27017/CEN526', function (err, db) {
         var lecturesCollection = db.collection('lectures');
 
         lecturesCollection.drop(function () {
-            console.log('droped lectures collection');
+            console.log('dropped lectures collection');
         });
 
         var cen526 = {'name': 'CEN526', 'comment': 'Web Technologies Ph.D. Mikheil Rukhaia 19:00 - 22:00 B301'};
@@ -52,6 +54,12 @@ MongoClient.connect('mongodb://localhost:27017/CEN526', function (err, db) {
 
         });
 
+    });
+
+    // catch errors
+    app.use(function(req, res, next) {
+        res.render('errors/404', {});
+        //res.status(404).send('Sorry cant find that!');
     });
 
     var server = app.listen(8000, function () {

@@ -1,6 +1,6 @@
 {
   "name": "MyApp",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "My CEN526 App",
   "main": "app.js",
   "dependencies": {
@@ -10,6 +10,12 @@
     "swig": "~1.4.2"
   },
   "author": "ngochiashvili@gmail.com",
+  "contributors": [
+    {
+      "name" : "Merab Tato Kutalia",
+      "email" : "kutaliatato@gmail.com"
+    }
+  ],
   "license": "GPL",
   "private": true
 }

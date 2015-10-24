@@ -2,15 +2,11 @@
 
 {% block title %}Lectures{% endblock %}
 
-{% block head %}
-{% parent %}
-{% endblock %}
-
 {% block content %}
 <h1>{{ pagename}}</h1>
-<ul>
+<ul class="list-group">
     {% for lecture in lectures %}
-    <li>
+    <li class="list-group-item">
         {{ lecture.name }} : {{ lecture.comment }}
     </li>
     {% endfor %}
