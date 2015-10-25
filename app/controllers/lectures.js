@@ -8,7 +8,7 @@ module.exports = function (req, res, db) {
         console.log("retrieved records:");
         console.log(docs);
 
-        return res.render('lectures', {'pagenam': 'Lectures list', 'lectures': docs});
+        return res.render('lectures', {'pagenam': 'Lectures list', 'lectures': docs, 'page_name': 'lectures'});
 
     })
 };

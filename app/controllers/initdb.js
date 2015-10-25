@@ -28,7 +28,7 @@ module.exports = function (req, res, db) {
             console.log('inserted count: ');
             console.log(r.insertedCount);
         }
-        return res.render('initdb', {'result': r.insertedCount});
+        return res.render('initdb', {'result': r.insertedCount, 'page_name': 'initdb'});
     });
 
     //Init courses

@@ -6,7 +6,7 @@ module.exports = function (req, res, db) {
         if (err) {
             console.log(err);
         } else {
-            return res.render('index', {'name': doc.name});
+            return res.render('index', {"name": doc.name, 'page_name': 'home'});
         }
     })
 };
