@@ -2,6 +2,8 @@
  * Created by tatocaster on 10/24/15.
  */
 module.exports = function (req, res, db) {
+
+    //init lectures
     var lecturesCollection = db.collection('lectures');
 
     lecturesCollection.drop(function () {
@@ -28,4 +30,24 @@ module.exports = function (req, res, db) {
         }
         return res.render('initdb', {'result': r.insertedCount});
     });
+
+    //Init courses
+    var coursesCollection = db.collection('courses');
+
+    var course = {
+        'name': 'Faculty of Computer Technologies & Engineering',
+        'definition': '2015/2016 Academic Year. Fall Semester'
+    };
+
+    coursesCollection.insertOne(course, function (err, doc) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Insert course ');
+            console.log(doc);
+        }
+    });
+
+    //Init students
+    //TODO
 };
