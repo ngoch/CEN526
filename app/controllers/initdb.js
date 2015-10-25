@@ -8,15 +8,24 @@ module.exports = function (req, res, db) {
         console.log('dropped lectures collection');
     });
 
-    var cen526 = {'name': 'CEN526', 'comment': 'Web Technologies Ph.D. Mikheil Rukhaia 19:00 - 22:00 B301'};
+    var cen526 = {
+        'name': 'CEN526', 'comment': 'Web Technologies Ph.D. Mikheil Rukhaia 19:00 - 22:00 B301'
+    };
+    var cen525 = {
+        'name': 'CEN525',
+        'comment': 'CEN525 Advanced Database Systems Prof.Dr. Nodar Momtselidze 18:30-21:30 B301'
+    };
+    var cen533 = {
+        'name': 'CEN533', 'comment': 'CEN 533 Research Methodology Ph.D Besik Dundua 19:00 - 22:00 B304'
+    };
 
-    lecturesCollection.insertOne(cen526, function (err, doc) {
+    lecturesCollection.insertMany([cen526, cen525, cen533], function (err, r) {
         if (err) {
             console.log(err);
         } else {
-            console.log('insert document');
-            console.log(doc.ops);
+            console.log('inserted count: ');
+            console.log(r.insertedCount);
         }
-        return res.render('initdb', {'result': doc.result.ok});
+        return res.render('initdb', {'result': r.insertedCount});
     });
 };
