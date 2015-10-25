@@ -3,7 +3,7 @@
  */
 module.exports = function (app, express, MongoClient) {
     // serve static content
-    app.use('/public', express.static(appRoot + '/public'));
+    app.use('/public', express.static(rootPath + '/public'));
 
     MongoClient.connect('mongodb://localhost:27017/CEN526', function (err, db) {
         if (err) throw err;
@@ -21,8 +21,13 @@ module.exports = function (app, express, MongoClient) {
         });
 
         // catch errors
+        app.use(function (err, req, res, next) {
+            // error page
+            res.status(500).render('errors/5xx');
+        });
+
         app.use(function (req, res, next) {
-            res.render('errors/404', {});
+            res.status(404).render('errors/404', {});
             //res.status(404).send('Sorry cant find that!');
         });
 
